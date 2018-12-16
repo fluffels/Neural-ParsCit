@@ -1,6 +1,9 @@
 from __future__ import print_function
 import logging
-import cPickle
+try:
+    import cPickle
+except ImportError:
+    import pickle as cPickle
 import os
 import re
 import numpy as np
