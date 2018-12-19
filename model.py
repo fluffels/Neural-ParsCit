@@ -195,8 +195,10 @@ class Model(object):
                 c_found = 0
                 c_lower = 0
                 c_zeros = 0
+
+                is_digit = re.compile(r'\d')
                 # Lookup table initialization
-                for i in range(n_words):
+                for i in xrange(n_words):
                     word = self.id_to_word[i]
                     if word in pretrained:
                         new_weights[i] = pretrained[word]
@@ -204,10 +206,8 @@ class Model(object):
                     elif word.lower() in pretrained:
                         new_weights[i] = pretrained[word.lower()]
                         c_lower += 1
-                    elif re.sub(r'\d', '0', word.lower()) in pretrained:
-                        new_weights[i] = pretrained[
-                            re.sub(r'\d', '0', word.lower())
-                        ]
+                    elif is_digit.sub('0', word.lower()) in pretrained:
+                        new_weights[i] = pretrained[is_digit.sub('0', word.lower())]
                         c_zeros += 1
                 word_layer.embeddings.set_value(new_weights)
 #                print 'Loaded %i pretrained embeddings.' % len(pretrained)

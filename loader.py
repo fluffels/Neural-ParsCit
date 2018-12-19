@@ -168,6 +168,8 @@ def augment_with_pretrained(dictionary, ext_emb_path, words):
     print('Loading pretrained embeddings from %s...' % ext_emb_path)
     assert os.path.isfile(ext_emb_path)
 
+    is_digit = re.compile(r'\d')
+
     # Load pretrained embeddings from file
     #pretrained = set([
     #    line.rstrip().split()[0].strip()
@@ -186,11 +188,7 @@ def augment_with_pretrained(dictionary, ext_emb_path, words):
                 dictionary[word] = 0
     else:
         for word in words:
-            if any(x in pretrained for x in [
-                word,
-                word.lower(),
-                re.sub('\d', '0', word.lower())
-            ]) and word not in dictionary:
+            if any(x in pretrained for x in [word, word.lower(), is_digit.sub('0', word.lower())]) and word not in dictionary:
                 dictionary[word] = 0
 
     word_to_id, id_to_word = create_mapping(dictionary)
