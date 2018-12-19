@@ -179,7 +179,6 @@ class Model(object):
                 word_layer = EmbeddingLayer(n_words, word_dim, name='word_layer')
                 new_weights = word_layer.embeddings.get_value()
                 logging.info("Loading pretrained embeddings from %s...", pre_emb)
-                emb_invalid = 0
 
 #                for i, line in enumerate(codecs.open(pre_emb, 'r', 'cp850')):
 #                    line = line.rstrip().split()
