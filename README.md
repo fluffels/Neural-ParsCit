@@ -7,7 +7,7 @@ Neural ParsCit is a citation string parser which parses reference strings into i
 
 ## Initial setup
 
-To use the tagger, you need Python 2.7 (works in Python 3 but not fully supported), with Numpy, Theano and Gensim installed.
+To use the tagger, you need Python 2.7 (works in Python 3 but not fully supported), with Numpy, Theano and Gensim installed. scikit-learn is needed for model evaluation if you are training a new model.
 
 You can use environmental variables to set the following:
 - `MODEL_PATH`: Path to the model's parameters
