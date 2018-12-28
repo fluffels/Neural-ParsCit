@@ -5,15 +5,10 @@ from utils import create_dico, create_mapping, zero_digits
 from utils import iob2, iob_iobes
 import gensim, re
 
-def load_sentences(path, lower, zeros):
-    """
-    Load sentences. A line must contain only one word of the citation string
-    while running the model and the word and corresponding tag while training.
-    Sentences are separated by empty lines.
-    """
+def load_sentences(lines, lower, zeros):
     sentences = []
     sentence = []
-    for line in codecs.open(path, 'r', 'cp850'):
+    for line in lines:
         line = zero_digits(line.rstrip()) if zeros else line.rstrip()
         if not line:
             if len(sentence) > 0:
@@ -28,6 +23,15 @@ def load_sentences(path, lower, zeros):
             sentences.append(sentence)
     return sentences
 
+def load_sentences_from_file(path, lower, zeros):
+    """
+    Load sentences. A line must contain only one word of the citation string
+    while running the model and the word and corresponding tag while training.
+    Sentences are separated by empty lines.
+    """
+    with codecs.open(path, 'r', 'cp850') as f:
+        lines = [l for l in f]
+        return load_sentences(lines, lower, zeros)
 
 def update_tag_scheme(sentences, tag_scheme):
     """

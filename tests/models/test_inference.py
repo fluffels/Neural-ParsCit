@@ -5,7 +5,7 @@ import requests
 import numpy as np
 
 from model import Model
-from loader import load_sentences, prepare_dataset
+from loader import load_sentences_from_file, prepare_dataset
 from utils import create_input
 
 CORA_URL = "https://raw.githubusercontent.com/knmnyn/ParsCit/master/crfpp/traindata/cora.train"
@@ -46,9 +46,9 @@ def test_inference_performance():
     tf.write("\n\n".join(["\n".join(example.text) for example in dataset.examples]))
     tf.close()
 
-    train_sentences = load_sentences(tf.name,
-                                     model.parameters['lower'],
-                                     model.parameters['zeros'])
+    train_sentences = load_sentences_from_file(tf.name,
+                                               model.parameters['lower'],
+                                               model.parameters['zeros'])
 
     train_inputs = prepare_dataset(train_sentences,
                                    word_to_id,
